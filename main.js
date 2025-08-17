@@ -10,39 +10,54 @@ let computerChoice= function getComputerChoice() {
 };
 
 
-let humanCHoice = function getHumanChoice() {
-    return prompt("Make your choice");
-};
 
 let computerScore = 0;
 let humanScore = 0;
 let divResult = document.createElement("div");
+let pRunningScore = document.createElement("p");
+let pMessage = document.createElement("p");
+divResult.appendChild(pMessage);
+
+pRunningScore.textContent = `Your score: ${humanScore}, Computer score: ${computerScore}`;
+divResult.appendChild(pRunningScore);
+document.body.appendChild(divResult);
 
 function playRound(humanChoice, computerChoice) {
   let humanCHoice = humanChoice.toLowerCase();
+  let message = "";
+
   if (humanCHoice == "rock" && computerChoice == "paper") {
-      divResult.textContent = "You lose! Paper beats Rock";
-      computerScore++; 
+    message = "You lose! Paper beats Rock";
+    computerScore++; 
   }else if (humanCHoice == "rock" && computerChoice == "scissors") {
-    divResult.textContent = "You win! Rock beats scissors";
+    message = "You win! Rock beats scissors";
       humanScore++; 
   }else if (humanCHoice == "paper" && computerChoice == "rock") {
-    divResult.textContent = "You win! Paper beats rock";
+    message = "You win! Paper beats rock";
       humanScore++; 
   }else if (humanCHoice == "paper" && computerChoice == "scissors") {
-    divResult.textContent = "You lose! Scissors beats paper";
+    message = "You lose! Scissors beats paper";
       computerScore++; 
   }else if (humanCHoice == "scissors" && computerChoice == "rock") {
-    divResult.textContent = "You lose! Rock beats scissors";
+    message = "You lose! Rock beats scissors";
       computerScore++; 
   }else if (humanCHoice == "scissors" && computerChoice == "paper") {
-    divResult.textContent = "You win! Scissors beats paper";
+    message = "You win! Scissors beats paper";
       humanScore++; 
   }else {
-    divResult.textContent = "It's a tie";
+    message = "It's a tie";
+  }
+  
+  pMessage.textContent = message;
+  pRunningScore.textContent = `Your score: ${humanScore}, Computer score: ${computerScore}`;
+
+  if (computerScore === 5 || humanScore === 5) {
+    let pWinner = document.createElement("p");
+    pWinner.textContent = computerScore === 5 ? "You lost!" : "You won!";
+    divResult.appendChild(pWinner); 
+
   }
 
-  document.body.appendChild(divResult);
 }
 
 let rockButton = document.querySelector("#rock");
